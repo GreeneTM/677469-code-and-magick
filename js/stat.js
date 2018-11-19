@@ -44,19 +44,20 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  ctx.fillStyle = '#000';
-
   var maxTime = getMaxElement(times);
+  var reactStringX = CLOUD_X + FOND_GAP;
+  var reactStringY = CLOUD_Y + GAP + TEXT_HEIGHT;
 
   ctx.font = '16px PT Mono';
-  ctx.fillStyle = 'black';
-  ctx.fillText('Ура вы победили!', CLOUD_X + FOND_GAP, CLOUD_Y + GAP + TEXT_HEIGHT);
-  ctx.fillText('Список результатов:', CLOUD_X + FOND_GAP, CLOUD_Y + GAP + TEXT_HEIGHT * 2);
+  ctx.fillStyle = '#000';
+  ctx.fillText('Ура вы победили!', reactStringX, reactStringY);
+  ctx.fillText('Список результатов:', reactStringX, reactStringY + TEXT_HEIGHT);
 
   for (var i = 0; i < names.length; i++) {
+    var reactHeight = (MAX_HEIGHT * times[i]) / maxTime;
     var rectX = CLOUD_X + FIRST_INDENT + (BAR_WIDTH + COLUMN_SPACING) * i;
-    var rectY = CLOUD_Y + CLOUD_HEIGHT - GAP * 2 - TEXT_HEIGHT - (MAX_HEIGHT * times[i]) / maxTime;
-    var rectNameY = CLOUD_Y + CLOUD_HEIGHT - GAP * 3 - TEXT_HEIGHT - (MAX_HEIGHT * times[i]) / maxTime;
+    var rectY = CLOUD_Y + CLOUD_HEIGHT - GAP * 2 - TEXT_HEIGHT - reactHeight;
+    var rectNameY = rectY - GAP;
 
     ctx.fillStyle = '#000';
     ctx.fillText(names[i], rectX, CLOUD_HEIGHT - GAP);
@@ -66,6 +67,6 @@ window.renderStatistics = function (ctx, names, times) {
     } else {
       ctx.fillStyle = randomColor();
     }
-    ctx.fillRect(rectX, rectY, BAR_WIDTH, (MAX_HEIGHT * times[i]) / maxTime);
+    ctx.fillRect(rectX, rectY, BAR_WIDTH, reactHeight);
   }
 };
