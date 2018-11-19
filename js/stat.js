@@ -10,6 +10,9 @@ var FOND_GAP = 20; // отступ текста
 var BAR_WIDTH = 40; // ширина столбца
 var FIRST_INDENT = 40; // Первый отступ
 var MAX_HEIGHT = 150; // Максималная высота столбца
+var LONG_ALLOWED = 16;
+var LONG_COLOR = 7;
+
 // функция отрисовки облочка
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -29,12 +32,12 @@ var getMaxElement = function (arr) {
 // функция случайного оттенка синего цвета
 var randomColor = function () {
   var allowed = 'ABCDEF0123456789';
-  var S = '#0000';
+  var newColor = '#0000';
 
-  while (S.length < 7) {
-    S += allowed.charAt(Math.floor((Math.random() * 16) + 1));
+  while (newColor.length < LONG_COLOR) {
+    newColor += allowed.charAt(Math.floor((Math.random() * LONG_ALLOWED) + 1));
   }
-  return S;
+  return newColor;
 };
 
 window.renderStatistics = function (ctx, names, times) {
