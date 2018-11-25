@@ -14,42 +14,33 @@ var wizardSurname = ['да Марья', 'Верон', 'Мирабелла', 'В�
 var wizardCoatColor = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var wizardEyesColor = ['black', 'red', 'blue', 'yellow', 'green'];
 
-var randomSelections = function (items) {
+var randomElementFromArray = function (items) {
   return items[Math.floor(Math.random() * items.length)];
 };
 
-var wizards = [
-  {
-    name: randomSelections(WIZARD_NAME),
-    surname: randomSelections(WIZARD_SURNAME),
-    coatColor: randomSelections(WIZARD_COAT_COLOR),
-    eyesColor: randomSelections(WIZARD_EYES_COLOR)
-  },
-  {
-    name: randomSelections(WIZARD_NAME),
-    surname: randomSelections(WIZARD_SURNAME),
-    coatColor: randomSelections(WIZARD_COAT_COLOR),
-    eyesColor: randomSelections(WIZARD_EYES_COLOR)
-  },
-  {
-    name: randomSelections(WIZARD_NAME),
-    surname: randomSelections(WIZARD_SURNAME),
-    coatColor: randomSelections(WIZARD_COAT_COLOR),
-    eyesColor: randomSelections(WIZARD_EYES_COLOR)
-  },
-  {
-    name: randomSelections(WIZARD_NAME),
-    surname: randomSelections(WIZARD_SURNAME),
-    coatColor: randomSelections(WIZARD_COAT_COLOR),
-    eyesColor: randomSelections(WIZARD_EYES_COLOR)
+var NUMBER_OF_OBJECTS = 4;
+
+var generatesAnArray = function () {
+  var object = [];
+  for (var i = 0; i < NUMBER_OF_OBJECTS; i++) {
+    object[i] = {
+      name: randomElementFromArray(wizardName),
+      surname: randomElementFromArray(wizardSurname),
+      coatColor: randomElementFromArray(wizardCoatColor),
+      eyesColor: randomElementFromArray(wizardEyesColor)
+    };
   }
-];
+  return object;
+};
+
+var wizards = generatesAnArray();
 
 for (var i = 0; i < wizards.length; i++) {
+  var WizardsIndex = wizards[i];
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name + ' ' + wizards[i].surname;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
+  wizardElement.querySelector('.setup-similar-label').textContent = WizardsIndex.name + ' ' + WizardsIndex.surname;
+  wizardElement.querySelector('.wizard-coat').style.fill = WizardsIndex.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = WizardsIndex.eyesColor;
   similarListElement.appendChild(wizardElement);
 }
